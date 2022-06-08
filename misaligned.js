@@ -6,17 +6,17 @@ const minorColors = ['Blue', 'Orange', 'Green', 'Brown', 'Slate'];
 function printColorMap(
 	primaryColor,
 	secondaryColor,
-	printColor,
-	getColorsCount
+	printColors,
+	getColorsLength
 ) {
-	printColor(primaryColor, secondaryColor);
-	let colorCount = getColorsCount(primaryColor, secondaryColor);
+	printColors(primaryColor, secondaryColor);
+	let colorCount = getColorsLength(primaryColor, secondaryColor);
 	return colorCount;
 }
 
 function printColor(primaryColor, secondaryColor) {
 	for (let i = 0; i < primaryColor.length; i++) {
-		for (let j = 0; j < secondaryColor.length; j++) {
+		for (let j = 1; j < secondaryColor.length; j++) {
 			let colorIndex = getColorIndex(primaryColor.length, i, j);
 			getFormattedColorString(colorIndex, primaryColor[i], secondaryColor[j]);
 		}
@@ -46,5 +46,6 @@ function getFormattedColorString(
 }
 
 result = printColorMap(majorColors, minorColors, printColor, getColorsCount);
-expect(result).equals(25);
+colorLength = getColorsCount(majorColors, minorColors);
+expect(colorLength).equals(25);
 console.log('All is well (maybe!)');
