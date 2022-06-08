@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const majorColors = ['White', 'Red', 'Black', 'Yellow', 'Violet'];
 const minorColors = ['Blue', 'Orange', 'Green', 'Brown', 'Slate'];
 
-function print_color_map(
+function printColorMap(
 	primaryColor,
 	secondaryColor,
 	printColor,
@@ -15,9 +15,10 @@ function print_color_map(
 }
 
 function printColor(primaryColor, secondaryColor) {
-	for (let i = 0; i < majorColors.length; i++) {
-		for (let j = 0; j < minorColors.length; j++) {
-			console.log(`${i * 5 + j} | ${majorColors[i]} | ${minorColors[j]}`);
+	for (let i = 0; i < primaryColor.length; i++) {
+		for (let j = 0; j < secondaryColor.length; j++) {
+			let colorIndex = getColorIndex(primaryColor.length, i, j);
+			getFormattedColorString(colorIndex, primaryColor[i], secondaryColor[j]);
 		}
 	}
 }
@@ -26,6 +27,24 @@ function getColorsCount(primaryColor, secondaryColor) {
 	return primaryColor.length * secondaryColor.length;
 }
 
-result = print_color_map(majorColors, minorColors, printColor, getColorsCount);
+function getColorIndex(
+	primaryColorLength,
+	primaryColorIndex,
+	secondaryColorIndex
+) {
+	return primaryColorIndex * primaryColorLength + secondaryColorIndex + 1;
+}
+
+function getFormattedColorString(
+	colorIndex,
+	primaryColorName,
+	secondaryColorName
+) {
+	return console.log(
+		`${colorIndex} | ${primaryColorName} | ${secondaryColorName}`
+	);
+}
+
+result = printColorMap(majorColors, minorColors, printColor, getColorsCount);
 expect(result).equals(25);
 console.log('All is well (maybe!)');
